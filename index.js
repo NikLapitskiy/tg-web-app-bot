@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 const token = '7651957046:AAG7R1CgbVX1xR-iTfdUPXRdtZxlHx8GL88';
-const webAppUrl = 'https://effortless-blancmange-d0fc57.netlify.app/';
+const webAppUrl = 'https://effortless-blancmange-d0fc57.netlify.app';
 
 const bot = new TelegramBot(token, {polling: true});
 const app = express();
