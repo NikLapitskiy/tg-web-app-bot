@@ -7,6 +7,12 @@ const User = {
             callback(null, results[0]);
         });
     },
+    findAll: (callback) => {
+        db.query('SELECT * FROM users', (err, results) => {
+            if (err) return callback(err);
+            callback(null, results);
+        })
+    }
     // Другие методы для работы с пользователями
 };
 

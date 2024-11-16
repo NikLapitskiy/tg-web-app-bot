@@ -1,6 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const index = require('./routes/index');
 
 const token = '7651957046:AAG7R1CgbVX1xR-iTfdUPXRdtZxlHx8GL88';
 const webAppUrl = 'https://effortless-blancmange-d0fc57.netlify.app';
@@ -11,6 +13,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.use('/', index);
 
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
