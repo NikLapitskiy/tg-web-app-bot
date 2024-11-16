@@ -21,7 +21,21 @@ const MenuController = {
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
-    }
+    },
+
+    getByCategory: async (req, res) => {
+        try {
+            const { category } = req.query; // Извлекаем категорию из параметров запроса
+            if (!category) {
+                return res.status(400).json({ message: 'Категория не указана' }); // Обрабатываем случай, когда категория не указана
+            }
+    
+            const items = await Menu.findByCategory(category); // Передаем категорию в метод findByCategory
+            res.json(items);
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
         
     // Другие методы для работы с пользователями
 };
