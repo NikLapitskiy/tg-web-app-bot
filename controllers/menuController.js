@@ -4,7 +4,7 @@ const MenuController = {
     getById: async (req, res) => {
         try {
             const itemId = req.params.id;
-            const item = await Menu.findById(itemId); // Используем await для получения данных
+            const item = await Menu.findById(itemId);
             if (!item) {
                 return res.status(404).json({ message: 'Item not found' });
             }
@@ -15,21 +15,8 @@ const MenuController = {
     },
 
     getAll: async (req, res) => {
-        // try {
-        //     let items;
-        //     const { category } = req.query;
-        //     if (category) {
-        //         items = await Menu.findByCategory(category); 
-        //     }
-        //     else{
-        //          items = await Menu.findAll();
-        //     }
-        //     res.json(items);
-        // } catch (err) {
-        //     res.status(500).json({ message: err.message });
-        // }
         try {
-            const { category } = req.query; // Извлекаем категорию из параметров запроса
+            const { category } = req.query;
             const allItems = await Menu.findAll();
     
             let filteredItems = allItems;
@@ -40,6 +27,17 @@ const MenuController = {
             res.json(filteredItems);
         } catch (err) {
             res.status(500).json({ message: err.message });
+        }
+    },
+
+    postToCart: async (req, res) => {
+        try{
+            const { user_id, menu_id, quantity } = req.body;
+            const cart = await Menu.addToCart(user_id, menu_id, quantity);
+            res.json(cart);
+        }catch (err){
+            console.error('Ошибка при добавлении товара в корзину:', err);
+              return res.status(500).json({message: err.message});
         }
     },
 };
