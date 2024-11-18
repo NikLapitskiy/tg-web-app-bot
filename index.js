@@ -6,6 +6,7 @@ const index = require('./routes/index');
 
 const token = '7651957046:AAG7R1CgbVX1xR-iTfdUPXRdtZxlHx8GL88';
 const webAppUrl = 'https://effortless-blancmange-d0fc57.netlify.app';
+// const webAppUrl = 'http://192.168.100.2:50625/';
 
 const bot = new TelegramBot(token, {polling: true});
 const app = express();
@@ -15,6 +16,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/', index);
+
+
+
 
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
@@ -32,7 +36,7 @@ bot.on('message', async (msg) => {
         await bot.sendMessage(chatId, 'Заходи в наш интернет магазин по кнопке ниже', {
             reply_markup: {
                 inline_keyboard: [
-                    [{text: 'Сделать заказ', web_app: {url: webAppUrl}}]
+                    [{text: 'Сделать заказ', web_app: {url: webAppUrl + '/menu'}}]
                 ]
             }
         })

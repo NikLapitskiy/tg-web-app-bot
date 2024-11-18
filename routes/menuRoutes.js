@@ -4,6 +4,8 @@ const MenuController = require('../controllers/menuController');
 
 router.get('/', MenuController.getAll);
 router.get('/:id', MenuController.getById);
+
+
 // Другие маршруты для пользователей
 
 module.exports = router;

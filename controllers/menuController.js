@@ -15,29 +15,33 @@ const MenuController = {
     },
 
     getAll: async (req, res) => {
-        try {
-            const items = await Menu.findAll(); // Здесь также используется await
-            res.json(items);
-        } catch (err) {
-            res.status(500).json({ message: err.message });
-        }
-    },
-
-    getByCategory: async (req, res) => {
+        // try {
+        //     let items;
+        //     const { category } = req.query;
+        //     if (category) {
+        //         items = await Menu.findByCategory(category); 
+        //     }
+        //     else{
+        //          items = await Menu.findAll();
+        //     }
+        //     res.json(items);
+        // } catch (err) {
+        //     res.status(500).json({ message: err.message });
+        // }
         try {
             const { category } = req.query; // Извлекаем категорию из параметров запроса
-            if (!category) {
-                return res.status(400).json({ message: 'Категория не указана' }); // Обрабатываем случай, когда категория не указана
+            const allItems = await Menu.findAll();
+    
+            let filteredItems = allItems;
+            if (category) {
+                filteredItems = await Menu.findByCategory(category);
             }
     
-            const items = await Menu.findByCategory(category); // Передаем категорию в метод findByCategory
-            res.json(items);
+            res.json(filteredItems);
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
     },
-        
-    // Другие методы для работы с пользователями
 };
 
 module.exports = MenuController;

@@ -21,7 +21,7 @@ const Menu = {
 
     findByCategory: (category) => {
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM menus JOIN categories on menus.category_id = categories.category_id WHERE categories.name = ?', 
+            db.query('SELECT * FROM menus WHERE category_id = ?', 
                 [category], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
