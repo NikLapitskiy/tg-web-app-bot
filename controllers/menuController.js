@@ -32,8 +32,8 @@ const MenuController = {
 
     postToCart: async (req, res) => {
         try{
-            const { user_id, menu_id, quantity } = req.body;
-            const cart = await Menu.addToCart(user_id, menu_id, quantity);
+            const { user_id, menu_item, quantity } = req.body;
+            const cart = await Menu.addToCart(user_id, menu_item.menu_id, quantity);
             res.json(cart);
         }catch (err){
             console.error('Ошибка при добавлении товара в корзину:', err);
